@@ -1,0 +1,4 @@
+prod/.terraform
+prod/terraform.tfvars
+watcher/.terraform
+watcher/terraform.tfvars

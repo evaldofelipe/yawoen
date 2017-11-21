@@ -1,0 +1,4 @@
+do_token = "DO_API_KEY"
+pub_key = "PATCH_PUB_KEY"
+pvt_key = "PATCH_PVT_KEY"
+ssh_fingerprint = "SSHKEY_FINGERPRINT"
