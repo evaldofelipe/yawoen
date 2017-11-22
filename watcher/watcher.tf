@@ -47,15 +47,13 @@ resource "digitalocean_droplet" "watcher" {
 
     provisioner "remote-exec" {
     inline = [
-        "cd terraform plan",
-        "cd terraform apply",
+        "terraform plan",
+        "terraform apply",
     ]
   }
 
 }
 
 output "ip" {
-  value = "watcher address: ${digitalocean_droplet.watcher.ipv4_address}"
-  value = "App address: ${digitalocean_droplet.haproxy.ipv4_address}"
-
+  value = "Done! watcher address: ${digitalocean_droplet.watcher.ipv4_address}"
 }
