@@ -14,9 +14,8 @@ resource "digitalocean_droplet" "watcher" {
       private_key = "${file(var.pvt_key)}"
       timeout = "2m"
     }
-
    
-  provisioner "remote-exec" {
+    provisioner "remote-exec" {
     inline = [
         "export PATH=$PATH:/usr/bin",
     	"apt-get update",
@@ -28,10 +27,17 @@ resource "digitalocean_droplet" "watcher" {
         "git clone https://github.com/evaldofelipe/yawoen.git",
         "cd ~/yawoen/prod",
     	"terraform init && cp terraform.tfvars.example terraform.tfvars",
-    ]
-  }
- 
-  provisioner "file" {
+        "iptables -A INPUT -p tcp -s ${var.private_range} --dport 22 -j ACCEPT",
+        "iptables -A INPUT -p udp -s ${var.private_range} --dport 53 -j ACCEPT",
+        "iptables -A INPUT -p tcp -s ${var.private_range} --dport 53 -j ACCEPT",
+        "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -j DROP",
+        "iptables -A INPUT -p udp -s 0.0.0.0/0 --dport 53 -j DROP",
+        "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 53 -j DROP",
+        ]
+    }
+        
+    # copy sshkeys to watcher
+    provisioner "file" {
     source      = "~/.ssh/id_rsa_terraform"
     destination = "~/.ssh/id_rsa_terraform"
     }
@@ -40,20 +46,20 @@ resource "digitalocean_droplet" "watcher" {
     source      = "~/.ssh/id_rsa.pub"
     destination = "~/.ssh/id_rsa.pub"
     }
-
+        
+    # copy sensitive information to watcher
     provisioner "file" {
     source      = "../watcher/terraform.tfvars"
     destination = "~/yawoen/prod/terraform.tfvars"
     }
   
-
+    # deploy prod environment
     provisioner "remote-exec" {
     inline = [
         "cd ~/yawoen/prod",
         "terraform apply -auto-approve",
-    ]
-  }
-
+        ]
+    }
 }
 
 output "ip" {

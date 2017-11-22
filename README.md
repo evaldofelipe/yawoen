@@ -1,6 +1,6 @@
-# Automate something
+# Automate docker app deploy
 
-This automation helps you to automate something.
+This example will help you to automate a docker enviroment, using terraform, on Digital Ocean.
 That's help a lot!
 
 **To install terraform**
@@ -18,7 +18,7 @@ mv terraform /usr/local/bin
 
 **Terraforms vars**
 
-On project directory, copy a file where go the sensitive information about cloud provider, and put your information
+On project directory, copy a file example where go the sensitive information about cloud provider.
 
 ```bash
 cp watcher/terraform.tfvars.example watcher/terraform.tfvars
@@ -35,8 +35,11 @@ To get a fingerprint of your sshkey
 ```bash
 ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub | awk '{print $2}'
 ```
+Private IP's is only for administration access.
+
 NOTE: Use the same key as you using on Digital Ocean to control the new environment.
 
+**Deploy**
 
 Install terraform dependencies
 ```bash
@@ -47,4 +50,8 @@ Start deploy proccess
 terraform plan
 terraform apply
 ```
-The last output is a watcher IP. Access to configurate the sensitive information to prod environment.
+The last output is a watcher and application address. To see the environment working:
+```bash
+curl APP_ADDRESS
+```
+
