@@ -1,4 +1,8 @@
 prod/.terraform
 prod/terraform.tfvars
+prod/terraform.tfstate
+prod/terraform.tfstate.backup
 watcher/.terraform
 watcher/terraform.tfvars
+watcher/terraform.tfstate
+watcher/terraform.tfstate.backup

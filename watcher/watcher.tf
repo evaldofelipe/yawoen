@@ -23,8 +23,16 @@ resource "digitalocean_droplet" "watcher" {
         "wget https://releases.hashicorp.com/terraform/0.11.0/terraform_0.11.0_linux_amd64.zip",
     	"unzip terraform_0.11.0_linux_amd64.zip",
     	"mv terraform /usr/local/bin",
-    	"git clone https://github.com/evaldofelipe/yawoen.git",
-        "cd yaowen",	
+        "rm -rf terraform_0.11.0_linux_amd64.zip",
+        "git clone https://github.com/evaldofelipe/yawoen.git",
+        "cd ~/.ssh",
+        "ssh-keygen -f id_rsa -t rsa -N ''",
+        "openssl rsa -in ~/.ssh/id_rsa -out ~/.ssh/id_rsa_terraform",
+        "ssh-keygen -lf ~/.ssh/id_rsa_terraform | cut -c6-52 >> ~/yawoen/prod/fingerprint-prod",
+    	"cd ~/yawoen/prod && cp terraform.tfvars.example terraform.tfvars",
     ]
   }
+}
+output "ip" {
+  value = "${digitalocean_droplet.watcher.ipv4_address}"
 }
