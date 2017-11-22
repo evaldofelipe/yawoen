@@ -50,7 +50,7 @@ resource "digitalocean_droplet" "watcher" {
     provisioner "remote-exec" {
     inline = [
         "cd ~/yawoen/prod",
-        "terraform apply -force",
+        "terraform apply -auto-approve",
     ]
   }
 
