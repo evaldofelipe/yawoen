@@ -2,7 +2,7 @@
 
 This example will help you to automate a docker enviroment, using terraform, on Digital Ocean.
 That's help a lot!
-
+---
 **To install terraform**
 
 On mac
@@ -15,13 +15,19 @@ wget https://releases.hashicorp.com/terraform/0.11.0/terraform_0.11.0_linux_amd6
 unzip terraform_0.11.0_linux_amd64.zip
 mv terraform /usr/local/bin 
 ```
+---
+**Clone Repository**
 
+```bash
+git clone https://github.com/evaldofelipe/yawoen
+```
+---
 **Terraforms vars**
 
 On project directory, copy a file example where go the sensitive information about cloud provider.
 
 ```bash
-cp watcher/terraform.tfvars.example watcher/terraform.tfvars
+cd yawoen && cp watcher/terraform.tfvars.example watcher/terraform.tfvars
 ```
 
 You can generate the Digital Ocean API here:
@@ -38,7 +44,7 @@ ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub | awk '{print $2}'
 Private IP's is only for administration access. You can add just a single IP or a entire range.
 
 NOTE: Use the same key as you using on Digital Ocean to control the new environment.
-
+---
 **Deploy**
 
 Install terraform dependencies
@@ -50,6 +56,9 @@ Start deploy proccess
 terraform plan
 terraform apply
 ```
+---
+**Testing**
+
 The last output is a watcher and application address. To see the environment working:
 ```bash
 curl APP_ADDRESS
