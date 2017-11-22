@@ -35,7 +35,7 @@ To get a fingerprint of your sshkey
 ```bash
 ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub | awk '{print $2}'
 ```
-Private IP's is only for administration access.
+Private IP's is only for administration access. You can add just a single IP or a entire range.
 
 NOTE: Use the same key as you using on Digital Ocean to control the new environment.
 
