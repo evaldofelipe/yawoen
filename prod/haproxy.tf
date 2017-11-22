@@ -32,7 +32,7 @@ resource "digitalocean_droplet" "haproxy" {
       "sudo sed -i 's/DOCKER2_PRIVATE_IP/${digitalocean_droplet.docker2.ipv4_address_private}/g' /etc/haproxy/haproxy.cfg",
 
       # restart haproxy to load changes
-      "sudo service haproxy restart"
+      "sudo service haproxy restart",
 
         # add firewall rules
         "iptables -A INPUT -p tcp -s ${var.private_range} --dport 22 -j ACCEPT",
