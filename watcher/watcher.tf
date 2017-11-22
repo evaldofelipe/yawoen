@@ -39,11 +39,14 @@ resource "digitalocean_droplet" "watcher" {
         "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 53 -j DROP",
 
         #automate destroy
-        "touch /root/yawoen/prod/kill-servers.sh",
-        "echo \"cd ~/yawoen/prod/ && terraform destroy -force" > /root/yawoen/prod/kill-servers.sh",
-        "echo \"*/5 * * * * /root/yawoen/kill-servers.sh >/dev/null 2>&1" > /root/yawoen/prod/destroy-automator",
-        "crontab -l -u root | cat - ~/yawoen/prod/destroy-automator | crontab -u root -",
-        "rm -rf /root/yawoen/prod/destroy-automator",
+        "crontab -l -u root | cat - ~/yawoen/prod/automators/kill-automator | crontab -u root -",
+
+        #automate deploy
+        "crontab -l -u root | cat - ~/yawoen/prod/automators/up-automator | crontab -u root -",
+
+        #change sh file
+        "chmod +x ~/yawoen/prod/automators/kill-servers.sh",
+        "chmod +x ~/yawoen/prod/automators/up-servers.sh",
 
         ]
     }
