@@ -18,7 +18,13 @@ resource "digitalocean_droplet" "docker1" {
   provisioner "remote-exec" {
     inline = [
       "export PATH=$PATH:/usr/bin",
-      "docker run -d -p 80:8000  -t jwilder/whoami", 
+      "docker run -d -p 80:8000  -t jwilder/whoami",
+      "iptables -A INPUT -p tcp -s ${var.private_range} --dport 22 -j ACCEPT",
+      "iptables -A INPUT -p udp -s ${var.private_range} --dport 53 -j ACCEPT",
+      "iptables -A INPUT -p tcp -s ${var.private_range} --dport 53 -j ACCEPT",
+      "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -j DROP",
+      "iptables -A INPUT -p udp -s 0.0.0.0/0 --dport 53 -j DROP",
+      "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 53 -j DROP", 
     ]
   }
 }
