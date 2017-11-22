@@ -15,21 +15,7 @@ resource "digitalocean_droplet" "watcher" {
       timeout = "2m"
     }
 
-    provisioner "file" {
-    source      = "~/.ssh/id_rsa_terraform"
-    destination = "~/.ssh/id_rsa_terraform"
-    }
-
-    provisioner "file" {
-    source      = "~/.ssh/id_rsa.pub"
-    destination = "~/.ssh/id_rsa.pub"
-    }
-
-    provisioner "file" {
-    source      = "../watcher/terraform.tfvars"
-    destination = "~/yawoen/prod/terraform.tfvars"
-    }
-
+   
   provisioner "remote-exec" {
     inline = [
         "export PATH=$PATH:/usr/bin",
@@ -45,6 +31,20 @@ resource "digitalocean_droplet" "watcher" {
     ]
   }
  
+  provisioner "file" {
+    source      = "~/.ssh/id_rsa_terraform"
+    destination = "~/.ssh/id_rsa_terraform"
+    }
+
+    provisioner "file" {
+    source      = "~/.ssh/id_rsa.pub"
+    destination = "~/.ssh/id_rsa.pub"
+    }
+
+    provisioner "file" {
+    source      = "../watcher/terraform.tfvars"
+    destination = "~/yawoen/prod/terraform.tfvars"
+    }
   
 
     provisioner "remote-exec" {
