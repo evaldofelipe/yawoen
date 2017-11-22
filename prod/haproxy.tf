@@ -34,13 +34,13 @@ resource "digitalocean_droplet" "haproxy" {
       # restart haproxy to load changes
       "sudo service haproxy restart"
 
-      # add firewall rules
-      "iptables -A INPUT -p tcp -s ${var.private_range} --dport 22 -j ACCEPT",
-      "iptables -A INPUT -p udp -s ${var.private_range} --dport 53 -j ACCEPT",
-      "iptables -A INPUT -p tcp -s ${var.private_range} --dport 53 -j ACCEPT",
-      "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -j DROP",
-      "iptables -A INPUT -p udp -s 0.0.0.0/0 --dport 53 -j DROP",
-      "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 53 -j DROP",
+        # add firewall rules
+        "iptables -A INPUT -p tcp -s ${var.private_range} --dport 22 -j ACCEPT",
+        "iptables -A INPUT -p udp -s ${var.private_range} --dport 53 -j ACCEPT",
+        "iptables -A INPUT -p tcp -s ${var.private_range} --dport 53 -j ACCEPT",
+        "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -j DROP",
+        "iptables -A INPUT -p udp -s 0.0.0.0/0 --dport 53 -j DROP",
+        "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 53 -j DROP",
     ]
   }
 }
