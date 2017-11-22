@@ -25,14 +25,37 @@ resource "digitalocean_droplet" "watcher" {
     	"mv terraform /usr/local/bin",
         "rm -rf terraform_0.11.0_linux_amd64.zip",
         "git clone https://github.com/evaldofelipe/yawoen.git",
-        "cd ~/.ssh",
-        "ssh-keygen -f id_rsa -t rsa -N ''",
-        "openssl rsa -in ~/.ssh/id_rsa -out ~/.ssh/id_rsa_terraform",
-        "ssh-keygen -lf ~/.ssh/id_rsa_terraform | cut -c6-52 >> ~/yawoen/prod/fingerprint-prod",
-    	"cd ~/yawoen/prod && cp terraform.tfvars.example terraform.tfvars",
+        "cd ~/yawoen/prod",
+    	"terraform init && cp terraform.tfvars.example terraform.tfvars",
     ]
   }
+ 
+  provisioner "file" {
+    source      = "~/.ssh/id_rsa_terraform"
+    destination = "~/.ssh/id_rsa_terraform"
+    }
+
+    provisioner "file" {
+    source      = "~/.ssh/id_rsa.pub"
+    destination = "~/.ssh/id_rsa.pub"
+    }
+
+    provisioner "file" {
+    source      = "../watcher/terraform.tfvars"
+    destination = "~/yawoen/prod/terraform.tfvars"
+    }
+
+    provisioner "remote-exec" {
+    inline = [
+        "cd terraform plan",
+        "cd terraform apply",
+    ]
+  }
+
 }
+
 output "ip" {
-  value = "${digitalocean_droplet.watcher.ipv4_address}"
+  value = "watcher address: ${digitalocean_droplet.watcher.ipv4_address}"
+  value = "App address: ${digitalocean_droplet.haproxy.ipv4_address}"
+
 }
