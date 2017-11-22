@@ -19,7 +19,7 @@ resource "digitalocean_droplet" "watcher" {
     inline = [
         "export PATH=$PATH:/usr/bin",
     	
-        # install terraform and stuffs
+        # installing and moving stuffs
         "apt-get update",
     	"apt-get install unzip git -y",
         "wget https://releases.hashicorp.com/terraform/0.11.0/terraform_0.11.0_linux_amd64.zip",
@@ -40,8 +40,8 @@ resource "digitalocean_droplet" "watcher" {
 
         #automate destroy
         "touch /root/yawoen/prod/kill-servers.sh",
-        "echo "cd ~/yawoen/prod/ && terraform destroy -force" > /root/yawoen/prod/kill-servers.sh",
-        "echo "*/5 * * * * /root/yawoen/kill-servers.sh >/dev/null 2>&1" > /root/yawoen/prod/destroy-automator",
+        "echo \"cd ~/yawoen/prod/ && terraform destroy -force" > /root/yawoen/prod/kill-servers.sh",
+        "echo \"*/5 * * * * /root/yawoen/kill-servers.sh >/dev/null 2>&1" > /root/yawoen/prod/destroy-automator",
         "crontab -l -u root | cat - ~/yawoen/prod/destroy-automator | crontab -u root -",
         "rm -rf /root/yawoen/prod/destroy-automator",
 
