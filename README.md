@@ -1,15 +1,16 @@
 # Automate docker app deploy
 
-This example will help you to automate a docker enviroment, using terraform, on Digital Ocean.
+This guide will help you to automate a docker enviroment, using terraform, on Digital Ocean.
+
 That's help a lot!
 
 ## Install terraform
 
-On mac
+On Mac
 ```bash
 brew install terraform
 ```
-On linux/unix
+On Linux/Unix
 ```bash
 wget https://releases.hashicorp.com/terraform/0.11.0/terraform_0.11.0_linux_amd64.zip 
 unzip terraform_0.11.0_linux_amd64.zip
