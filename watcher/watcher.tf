@@ -19,7 +19,7 @@ resource "digitalocean_droplet" "watcher" {
     inline = [
         "export PATH=$PATH:/usr/bin",
     	
-        # installing and moving stuffs
+        # install terraform and stuffs
         "apt-get update",
     	"apt-get install unzip git -y",
         "wget https://releases.hashicorp.com/terraform/0.11.0/terraform_0.11.0_linux_amd64.zip",

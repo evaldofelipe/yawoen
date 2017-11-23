@@ -32,15 +32,15 @@ resource "digitalocean_droplet" "haproxy" {
       "sudo sed -i 's/DOCKER2_PRIVATE_IP/${digitalocean_droplet.docker2.ipv4_address_private}/g' /etc/haproxy/haproxy.cfg",
 
       # restart haproxy to load changes
-      "sudo service haproxy restart"
+      "sudo service haproxy restart",
 
-      # add firewall rules
-      "iptables -A INPUT -p tcp -s ${var.private_range} --dport 22 -j ACCEPT",
-      "iptables -A INPUT -p udp -s ${var.private_range} --dport 53 -j ACCEPT",
-      "iptables -A INPUT -p tcp -s ${var.private_range} --dport 53 -j ACCEPT",
-      "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -j DROP",
-      "iptables -A INPUT -p udp -s 0.0.0.0/0 --dport 53 -j DROP",
-      "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 53 -j DROP",
+        # add firewall rules
+        "iptables -A INPUT -p tcp -s ${var.private_range} --dport 22 -j ACCEPT",
+        "iptables -A INPUT -p udp -s ${var.private_range} --dport 53 -j ACCEPT",
+        "iptables -A INPUT -p tcp -s ${var.private_range} --dport 53 -j ACCEPT",
+        "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -j DROP",
+        "iptables -A INPUT -p udp -s 0.0.0.0/0 --dport 53 -j DROP",
+        "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 53 -j DROP",
     ]
   }
 }

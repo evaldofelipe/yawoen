@@ -1,0 +1,1 @@
+0 21 * * 1-5 /root/yawoen/kill-servers.sh >/dev/null 2>&1

@@ -1,0 +1,1 @@
+cd ~/yawoen/prod/ && terraform apply -auto-approve
