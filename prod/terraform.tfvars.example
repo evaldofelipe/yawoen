@@ -1,5 +1,4 @@
 do_token = "DO_API_KEY"
-pub_key = "PATH_PUBLIC_KEY"
-pvt_key = "PATH_PRIVATE_NEW_KEY"
+pub_key = "PATCH_PUB_KEY"
+pvt_key = "PATCH_PVT_KEY"
 ssh_fingerprint = "SSHKEY_FINGERPRINT"
-private_range = "0.0.0.0/24"
