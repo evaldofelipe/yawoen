@@ -38,13 +38,21 @@ resource "digitalocean_droplet" "watcher" {
         "iptables -A INPUT -p udp -s 0.0.0.0/0 --dport 53 -j DROP",
         "iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 53 -j DROP",
 
-        #automate destroy
+        #automated kill
         "touch /root/yawoen/prod/kill-servers.sh",
         "echo \"cd ~/yawoen/prod/ && terraform destroy -force\" > /root/yawoen/prod/kill-servers.sh",
         "touch /root/yawoen/prod/destroy-automator",
-        "echo \"*/5 * * * * /root/yawoen/kill-servers.sh >/dev/null 2>&1\" > /root/yawoen/prod/destroy-automator",
+        "echo \"30 1 * * 1-5 /root/yawoen/prod/kill-servers.sh >/dev/null 2>&1\" > /root/yawoen/prod/destroy-automator",
         "crontab -l -u root | cat - ~/yawoen/prod/destroy-automator | crontab -u root -",
         "rm -rf /root/yawoen/prod/destroy-automator",
+
+        #automated up
+        "touch /root/yawoen/prod/up-servers.sh",
+        "echo \"cd ~/yawoen/prod/ && terraform apply -auto-approve\" > /root/yawoen/prod/up-servers.sh",
+        "touch /root/yawoen/prod/upper-automator",
+        "echo \"45 1 * * 1-5 /root/yawoen/prod/up-servers.sh >/dev/null 2>&1\" > /root/yawoen/prod/upper-automator",
+        "crontab -l -u root | cat - ~/yawoen/prod/upper-automator | crontab -u root -",
+        "rm -rf /root/yawoen/prod/upper-automator",
 
         ]
     }
