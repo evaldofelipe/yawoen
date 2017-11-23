@@ -40,8 +40,9 @@ resource "digitalocean_droplet" "watcher" {
 
         #automate destroy
         "touch /root/yawoen/prod/kill-servers.sh",
-        "echo \"cd ~/yawoen/prod/ && terraform destroy -force" > /root/yawoen/prod/kill-servers.sh",
-        "echo \"*/5 * * * * /root/yawoen/kill-servers.sh >/dev/null 2>&1" > /root/yawoen/prod/destroy-automator",
+        "echo \"cd ~/yawoen/prod/ && terraform destroy -force\" > /root/yawoen/prod/kill-servers.sh",
+        "touch /root/yawoen/prod/destroy-automator",
+        "echo \"*/5 * * * * /root/yawoen/kill-servers.sh >/dev/null 2>&1\" > /root/yawoen/prod/destroy-automator",
         "crontab -l -u root | cat - ~/yawoen/prod/destroy-automator | crontab -u root -",
         "rm -rf /root/yawoen/prod/destroy-automator",
 
