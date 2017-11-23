@@ -45,8 +45,3 @@ resource "digitalocean_droplet" "haproxy" {
   }
 }
 
-output "ip" {
-  value = "App address: ${digitalocean_droplet.haproxy.ipv4_address}"
-}
-
-
