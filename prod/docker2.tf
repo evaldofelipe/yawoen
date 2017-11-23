@@ -29,6 +29,3 @@ resource "digitalocean_droplet" "docker2" {
   }
 }
 
-output "ip-docker2" {
-  value = "Docker2 address: ${digitalocean_droplet.docker2.ipv4_address}"
-}
