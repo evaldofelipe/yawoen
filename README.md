@@ -52,7 +52,7 @@ Start deploy proccess
 terraform plan
 terraform apply
 ```
-**NOTE:** The deploy proccess can take a several time (20 minutes or more).
+**NOTE:** The deploy proccess can take a several time (20 minutes or more). \
 **NOTE2:** This automated method is programed to deploy at 7AM and destroy the environment at 7PM.
 
 ## Testing
