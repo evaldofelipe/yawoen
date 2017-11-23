@@ -51,7 +51,7 @@ cd watcher/ && terraform init
 Start deploy proccess
 ```bash
 terraform plan
-terraform apply
+terraform apply -auto-approve
 ```
 **NOTE:** The deploy proccess can take a several time (20 minutes or more). 
 
