@@ -42,17 +42,19 @@ resource "digitalocean_droplet" "watcher" {
         "touch /root/yawoen/prod/kill-servers.sh",
         "echo \"cd ~/yawoen/prod/ && terraform destroy -force\" > /root/yawoen/prod/kill-servers.sh",
         "touch /root/yawoen/prod/destroy-automator",
-        "echo \"30 1 * * 1-5 /root/yawoen/prod/kill-servers.sh >/dev/null 2>&1\" > /root/yawoen/prod/destroy-automator",
+        "echo \"* 19 * * 1-5 /root/yawoen/prod/kill-servers.sh >/dev/null 2>&1\" > /root/yawoen/prod/destroy-automator",
         "crontab -l -u root | cat - ~/yawoen/prod/destroy-automator | crontab -u root -",
         "rm -rf /root/yawoen/prod/destroy-automator",
+        "chmod +x /root/yawoen/prod/up-servers.sh",
 
         #automated up
         "touch /root/yawoen/prod/up-servers.sh",
         "echo \"cd ~/yawoen/prod/ && terraform apply -auto-approve\" > /root/yawoen/prod/up-servers.sh",
         "touch /root/yawoen/prod/upper-automator",
-        "echo \"45 1 * * 1-5 /root/yawoen/prod/up-servers.sh >/dev/null 2>&1\" > /root/yawoen/prod/upper-automator",
+        "echo \"* 7 * * 1-5 /root/yawoen/prod/up-servers.sh >/dev/null 2>&1\" > /root/yawoen/prod/upper-automator",
         "crontab -l -u root | cat - ~/yawoen/prod/upper-automator | crontab -u root -",
         "rm -rf /root/yawoen/prod/upper-automator",
+        "chmod +x /root/yawoen/prod/up-servers.sh",
 
         ]
     }
@@ -81,4 +83,8 @@ resource "digitalocean_droplet" "watcher" {
         "terraform apply -auto-approve",
         ]
     }
+}
+
+output "ip-watcher" {
+  value = "${digitalocean_droplet.watcher.ipv4_address}"
 }
