@@ -74,7 +74,3 @@ resource "digitalocean_droplet" "watcher" {
         ]
     }
 }
-
-output "ip" {
-  value = "Done! watcher address: ${digitalocean_droplet.watcher.ipv4_address}"
-}
