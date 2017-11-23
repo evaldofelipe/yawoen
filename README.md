@@ -2,8 +2,8 @@
 
 This example will help you to automate a docker enviroment, using terraform, on Digital Ocean.
 That's help a lot!
----
-**To install terraform**
+
+## Install terraform
 
 On mac
 ```bash
@@ -15,15 +15,12 @@ wget https://releases.hashicorp.com/terraform/0.11.0/terraform_0.11.0_linux_amd6
 unzip terraform_0.11.0_linux_amd64.zip
 mv terraform /usr/local/bin 
 ```
----
-**Clone Repository**
-
+## Clone Repository
 ```bash
 git clone https://github.com/evaldofelipe/yawoen
 ```
----
-**Terraforms vars**
 
+## Terraforms vars
 On project directory, copy a file example where go the sensitive information about cloud provider.
 
 ```bash
@@ -43,10 +40,9 @@ ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub | awk '{print $2}'
 ```
 Private IP's is only for administration access. You can add just a single IP or a entire range.
 
-NOTE: Use the same key as you using on Digital Ocean to control the new environment.
----
-**Deploy**
+**NOTE:** Use the same key as you using on Digital Ocean to control the new environment.
 
+## Deploy
 Install terraform dependencies
 ```bash
 cd watcher/ && terraform init
@@ -56,11 +52,15 @@ Start deploy proccess
 terraform plan
 terraform apply
 ```
----
-**Testing**
+**NOTE:** This automated method is programed to deploy at 7AM and destroy the environment at 7PM.
 
-The last output is a watcher and application address. To see the environment working:
+## Testing
+The last output is application address. To see the environment working:
 ```bash
 curl APP_ADDRESS
 ```
+## Monitoring
+You can use the DigitalOcean panel to find information about RAM, CPU, WAN from your droplets.
+https://cloud.digitalocean.com/droplets
+
 
