@@ -62,12 +62,12 @@ resource "digitalocean_droplet" "watcher" {
     # copy sshkeys to watcher
     provisioner "file" {
     source      = "${file(var.pvt_key)}"
-    destination = "~/.ssh/id_rsa"
+    destination = "${file(var.pvt_key)}"
     }
 
     provisioner "file" {
     source      = "${file(var.pub_key)}"
-    destination = "~/.ssh/id_rsa.pub" 
+    destination = "${file(var.pub_key)}" 
     }
         
     # copy sensitive information to watcher
