@@ -61,13 +61,13 @@ resource "digitalocean_droplet" "watcher" {
         
     # copy sshkeys to watcher
     provisioner "file" {
-    source      = "~/.ssh/id_rsa_terraform"
-    destination = "~/.ssh/id_rsa_terraform"
+    source      = "${file(var.pvt_key)}"
+    destination = "~/.ssh/id_rsa"
     }
 
     provisioner "file" {
-    source      = "~/.ssh/id_rsa.pub"
-    destination = "~/.ssh/id_rsa.pub"
+    source      = "${file(var.pub_key)}"
+    destination = "~/.ssh/id_rsa.pub" 
     }
         
     # copy sensitive information to watcher
