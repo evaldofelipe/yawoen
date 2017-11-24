@@ -35,6 +35,8 @@ You need create a decrypted copy of your sshkey to work on this project.
 ```bash
 openssl rsa -in ~/.ssh/id_rsa -out ~/.ssh/id_rsa_terraform
 ```
+**NOTE:** For set your local user key, use "~" to indicate your home folder, not the complete path.
+
 To get a fingerprint of your sshkey
 ```bash
 ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub | awk '{print $2}'
